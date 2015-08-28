@@ -5,7 +5,7 @@
     * @backupStaticAttributes disabled
     */
     require_once "src/Store.php";
-    // require_once "src/Brand.php";
+    require_once "src/Brand.php";
 
     $server = 'mysql:host=localhost:3306;dbname=shoes_test';
     $username = 'root';
@@ -17,7 +17,7 @@
         protected function tearDown()
         {
             Store::deleteAll();
-            // Brand::deleteAll();
+            Brand::deleteAll();
         }
 
         function test_getName()
@@ -242,7 +242,7 @@
             $website = "http://www.nike.com";
             $test_brand = new Brand($name, $website);
             $test_brand->save();
-            
+
             $name2 = "Adidas";
             $website2 = "http://www.adidas.com";
             $test_brand2 = new Brand($name2, $website2);
@@ -259,10 +259,5 @@
             //Assert
             $this->assertEquals([$test_brand, $test_brand2], $result);
         }
-
-
-
-
-
     }
 ?>
