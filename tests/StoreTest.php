@@ -96,6 +96,30 @@
             $this->assertEquals([], $result);
         }
 
+        function test_find()
+        {
+            //Arrange
+            $name = "Burchs";
+            $location = "Oakway Center";
+            $phone = "5415131122";
+            $test_store = new Store($name, $location, $phone);
+            $test_store->save();
+
+            $name2 = "Payless ShoeSource";
+            $location2 = "Valley River Center";
+            $phone2 = "5415130809";
+            $test_store2 = new Store($name2, $location2, $phone2);
+            $test_store2->save();
+
+            //Act
+            $result = Store::find($test_store2->getId());
+
+            //Assert
+            $this->assertEquals($test_store2, $result);
+        }
+
+
+
 
     }
 ?>
