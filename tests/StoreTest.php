@@ -14,11 +14,11 @@
 
     class StoreTest extends PHPUnit_Framework_TestCase
     {
-        // protected function tearDown()
-        // {
-        //     Store::deleteAll();
-        //     Brand::deleteAll();
-        // }
+        protected function tearDown()
+        {
+            // Store::deleteAll();
+            // Brand::deleteAll();
+        }
 
         function test_getName()
         {
@@ -34,5 +34,67 @@
             //Assert
             $this->assertEquals($name, $result);
         }
+
+        function test_save()
+        {
+            //Arrange
+            $name = "Burchs";
+            $location = "Oakway Center";
+            $phone = "5415131122";
+            $test_store = new Store($name, $location, $phone);
+
+            //Act
+            $test_store->save();
+
+            //Assert
+            $result = Store::getAll();
+            $this->assertEquals($test_store, $result[0]);
+        }
+
+        function test_getAll()
+        {
+            //Arrange
+            $name = "Burchs";
+            $location = "Oakway Center";
+            $phone = "5415131122";
+            $test_store = new Store($name, $location, $phone);
+            $test_store->save();
+
+            $name2 = "Payless ShoeSource";
+            $location2 = "Valley River Center";
+            $phone2 = "5415130809";
+            $test_store2 = new Store($name2, $location2, $phone2);
+            $test_store2->save();
+
+            //Act
+            $result = Store::getAll();
+
+            //Assert
+            $this->assertEquals([$test_store, $test_store2], $result);
+        }
+
+        function test_deleteAll()
+        {
+            //Arrange
+            $name = "Burchs";
+            $location = "Oakway Center";
+            $phone = "5415131122";
+            $test_store = new Store($name, $location, $phone);
+            $test_store->save();
+
+            $name2 = "Payless ShoeSource";
+            $location2 = "Valley River Center";
+            $phone2 = "5415130809";
+            $test_store2 = new Store($name2, $location2, $phone2);
+            $test_store2->save();
+
+            //Act
+            $result = Store::getAll();
+
+            //Assert
+            $this->assertEquals([], $result);
+        }
+
+
     }
 ?>
