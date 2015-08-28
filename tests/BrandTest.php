@@ -48,28 +48,26 @@
             $result = Brand::getAll();
             $this->assertEquals($test_brand, $result[0]);
         }
-        //
-        // function test_getAll()
-        // {
-        //     //Arrange
-        //     $name = "Burchs";
-        //     $location = "Oakway Center";
-        //     $phone = "5415131122";
-        //     $test_store = new Store($name, $location, $phone);
-        //     $test_store->save();
-        //
-        //     $name2 = "Payless ShoeSource";
-        //     $location2 = "Valley River Center";
-        //     $phone2 = "5415130809";
-        //     $test_store2 = new Store($name2, $location2, $phone2);
-        //     $test_store2->save();
-        //
-        //     //Act
-        //     $result = Store::getAll();
-        //
-        //     //Assert
-        //     $this->assertEquals([$test_store, $test_store2], $result);
-        // }
+
+        function test_getAll()
+        {
+            //Arrange
+            $name = "Nike";
+            $website = "http://www.nike.com";
+            $test_brand = new Brand($name, $website);
+            $test_brand->save();
+
+            $name2 = "Adidas";
+            $website2 = "http://www.adidas.com";
+            $test_brand2 = new Brand($name2, $website2);
+            $test_brand2->save();
+
+            //Act
+            $result = Brand::getAll();
+
+            //Assert
+            $this->assertEquals([$test_brand, $test_brand2], $result);
+        }
         //
         // function test_deleteAll()
         // {
