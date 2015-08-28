@@ -90,6 +90,26 @@
             $this->assertEquals([], $result);
         }
 
+        function test_find()
+        {
+            //Arrange
+            $name = "Nike";
+            $website = "http://www.nike.com";
+            $test_brand = new Brand($name, $website);
+            $test_brand->save();
+
+            $name2 = "Adidas";
+            $website2 = "http://www.adidas.com";
+            $test_brand2 = new Brand($name2, $website2);
+            $test_brand2->save();
+
+            //Act
+            $result = Brand::find($test_brand2->getId());
+
+            //Assert
+            $this->assertEquals($test_brand2, $result);
+        }
+
 
         //
         // function test_find()
