@@ -34,21 +34,20 @@
             $this->assertEquals($name, $result);
         }
 
-        // function test_save()
-        // {
-        //     //Arrange
-        //     $name = "Burchs";
-        //     $location = "Oakway Center";
-        //     $phone = "5415131122";
-        //     $test_store = new Store($name, $location, $phone);
-        //
-        //     //Act
-        //     $test_store->save();
-        //
-        //     //Assert
-        //     $result = Store::getAll();
-        //     $this->assertEquals($test_store, $result[0]);
-        // }
+        function test_save()
+        {
+            //Arrange
+            $name = "Nike";
+            $website = "http://www.nike.com";
+            $test_brand = new Brand($name, $website);
+
+            //Act
+            $test_brand->save();
+
+            //Assert
+            $result = Brand::getAll();
+            $this->assertEquals($test_brand, $result[0]);
+        }
         //
         // function test_getAll()
         // {
