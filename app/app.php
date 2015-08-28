@@ -106,22 +106,22 @@
     // [U] Update a Store, then display that store and its brands.
     $app->patch("/store/{id}", function($id) use ($app) {
         $store = Store::find($id);
-        $escaped_post = escapeCharsInArray($_POST);
+        //For some reason my escaped chars function behaves
+        //strangely when updating DB rows. Omit it for now.
 
         // Check for which post variables we have and update those
         // Could be just one or all three
-        if (!empty($escaped_post['new_name'])) {
-            $store->updateName($escaped_post['new_name']);
+        if (!empty($_POST['new_name'])) {
+            $store->updateName($_POST['new_name']);
         }
 
-        if (!empty($escaped_post['new_location'])) {
-            $store->updateLocation($escaped_post['new_location']);
+        if (!empty($_POST['new_location'])) {
+            $store->updateLocation($_POST['new_location']);
         }
 
-        if (!empty($escaped_post['new_phone'])) {
-            $store->updatePhone($escaped_post['new_phone']);
+        if (!empty($_POST['new_phone'])) {
+            $store->updatePhone($_POST['new_phone']);
         }
-
 
         return $app['twig']->render('store.html.twig', array(
             'store' => $store,
@@ -204,12 +204,18 @@
     ** This route is not necessary-- finish if time. */
     $app->patch("/brand/{id}", function($id) use ($app) {
         $brand = Brand::find($id);
-        $escaped_post = escapeCharsInArray($_POST);
+        //For some reason my escaped chars function behaves
+        //strangely when updating DB rows. Omit it for now.
 
-        // check for which post variables we have and update those
-        // could be just one or both
-        $brand->updateName($escaped_post['name']);
-        $brand->updateWebsite($escaped_post['website']);
+        // Check for which post variables we have and update those
+        // Could be just one or both
+        if (!empty($_POST['new_name'])) {
+            $brand->updateName($_POST['new_name']);
+        }
+
+        if (!empty($_POST['new_website'])) {
+            $brand->updateWebsite($_POST['new_website']);
+        }
 
         return $app['twig']->render('brand.html.twig', array(
             'brand' => $brand,
