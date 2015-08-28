@@ -172,15 +172,16 @@
         $brand = Brand::find($id);
         $escaped_post = escapeCharsInArray($_POST);
 
-        // if store already exists, use it
-        // else make new store
-            $new_store = new Store(
-                $escaped_post['name'],
-                $escaped_post['location'],
-                $escaped_post['phone'],
-                $escaped_post['id']
-            );
+        // If user chose to add an existing store, add it to the brand.
+        if (!empty($escaped_post['existing_store'])) {
+            $existing_store = Store::find($escaped_post['existing_store']);
+            $brand->addStore($existing_store);
+        } else {
+            // Otherwise, create a new store and add it to the brand.
+            $new_store = new Store($escaped_post['name'], $escaped_post['location'], $escaped_post['phone']);
             $new_store->save();
+            $brand->addStore($new_store);
+        }
 
         return $app['twig']->render('brand.html.twig', array(
             'brand' => $brand,

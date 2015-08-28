@@ -1,0 +1,104 @@
+<html>
+    <head>
+        <title>Shoe Brand: {{ brand.getName }}</title>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+        <link rel='stylesheet' href='/styles/styles.css' />
+    </head>
+    <body>
+        <!-- start nav -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">
+                        <img alt="Salon" src="/img/heels.jpg" id="heels">
+                        <span id="shoes_manager">Shoes Manager Thing</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <!-- end nav -->
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3>Stores carrying {{ brand.getName }} shoes</h3>
+                            <p><em>Website</em>: {{ brand.getWebsite }}</p>
+                            <p><a href="/brand/{{ brand.getId }}/editthisurldoesntexistyetputupdateforminbody">Update brand info</a></p>
+                        </div>
+                        <div class="panel-body">
+                            {% if stores is not empty %}
+                                <div class="list-group">
+                                    {% for store in stores %}
+                                        <div class="list-group-item">
+                                            <a class="list-group-item-heading" href="/store/{{ store.getId }}"><h4>{{ store.getName}}</h4></a>
+                                            <p class="list-group-item-text">Location: {{ store.getLocation }}</p>
+                                            <p class="list-group-item-text">Phone: {{ store.getPhone }}</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <form action="/brand/{{ brand.getId }}/removeStores" class="form-horizontal" method="post">
+                                    <input name="_method" type="hidden" value="delete">
+                                    <button type="submit" class="btn btn-default btn-md">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        Remove all stores from {{ brand.getName }}
+                                    </button>
+                                </form>
+
+                            {% else %}
+                                <span class="list-group-item">No stores yet.</span>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="panel panel-default" id="store-form">
+                        <div class="panel-heading">
+                            <h3>Add store</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form action='/brand/{{ brand.getId }}' role='form' method='post'>
+                                {% if all_stores is not empty %}
+                                <div class='form-group'>
+                                    <label for='existing_store'>Add an existing store to {{ brand.getName }}</label>
+                                    <select class='form-control' id='existing_store' name='existing_store' onchange="form.submit()">
+                                            <option value=''>Select a store</option>
+                                        {% for existing_store in all_stores %}
+                                            {# if brand already has this store, grey it out in the list#}
+                                            <option value='{{ existing_store.getId }}'{% if brand.hasStore(existing_store.getId) %} disabled='disabled'{% endif %}>
+                                                {{ existing_store.getName }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <h5>--or--</h5>
+                                {% endif %}
+
+                                <div class='form-group'>
+                                    <input id='brand_id' name='brand_id' type='hidden' value='{{ brand.getId }}'>
+                                    <label for='name'>New store name</label>
+                                    <input id='name' name='name' type='text' required>
+                                </div>
+                                <div class='form-group'>
+                                    <label for='location'>New store location:</label>
+                                    <input id='location' name='location' type='text' required>
+                                </div>
+                                <div class='form-group'>
+                                    <label for='phone'>New store phone:</label>
+                                    <input id='phone' name='phone' type='number' required>
+                                </div>
+                                <button type="submit" class="btn btn-default btn-md" id="add_client">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    Add New Store
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
