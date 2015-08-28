@@ -66,9 +66,25 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        function update($column, $data)
+        function updateName($new_name)
         {
-            // dont let em update id
+            $GLOBALS['DB']->exec("UPDATE stores SET name = '{$new_name}'
+                WHERE id = {$this->getId()};");
+            $this->setName($new_name);
+        }
+
+        function updateLocation($new_location)
+        {
+            $GLOBALS['DB']->exec("UPDATE stores SET location = '{$new_location}'
+                WHERE id = {$this->getId()};");
+            $this->setLocation($new_location);
+        }
+
+        function updatePhone($new_phone)
+        {
+            $GLOBALS['DB']->exec("UPDATE stores SET phone = '{$new_phone}'
+                WHERE id = {$this->getId()};");
+            $this->setPhone($new_phone);
         }
 
         function delete()
