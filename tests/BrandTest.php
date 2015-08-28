@@ -110,83 +110,40 @@
             $this->assertEquals($test_brand2, $result);
         }
 
+        function test_updateName()
+        {
+            //Arrange
+            $name = "Nike";
+            $website = "http://www.nike.com";
+            $test_brand = new Brand($name, $website);
+            $test_brand->save();
 
-        //
-        // function test_find()
-        // {
-        //     //Arrange
-        //     $name = "Burchs";
-        //     $location = "Oakway Center";
-        //     $phone = "5415131122";
-        //     $test_store = new Store($name, $location, $phone);
-        //     $test_store->save();
-        //
-        //     $name2 = "Payless ShoeSource";
-        //     $location2 = "Valley River Center";
-        //     $phone2 = "5415130809";
-        //     $test_store2 = new Store($name2, $location2, $phone2);
-        //     $test_store2->save();
-        //
-        //     //Act
-        //     $result = Store::find($test_store2->getId());
-        //
-        //     //Assert
-        //     $this->assertEquals($test_store2, $result);
-        // }
-        //
-        // function test_updateName()
-        // {
-        //     //Arrange
-        //     $name = "Burchs";
-        //     $location = "Oakway Center";
-        //     $phone = "5415131122";
-        //     $test_store = new Store($name, $location, $phone);
-        //     $test_store->save();
-        //
-        //     //Act
-        //     $new_name = "Shoe Emporium";
-        //     $test_store->updateName($new_name);
-        //
-        //     //Assert
-        //     $result = Store::getAll();
-        //     $this->assertEquals($new_name, $result[0]->getName());
-        // }
-        //
-        // function test_updateLocation()
-        // {
-        //     //Arrange
-        //     $name = "Burchs";
-        //     $location = "Oakway Center";
-        //     $phone = "5415131122";
-        //     $test_store = new Store($name, $location, $phone);
-        //     $test_store->save();
-        //
-        //     //Act
-        //     $new_location = "Downtown";
-        //     $test_store->updateLocation($new_location);
-        //
-        //     //Assert
-        //     $result = Store::getAll();
-        //     $this->assertEquals($new_location, $result[0]->getLocation());
-        // }
-        //
-        // function test_updatePhone()
-        // {
-        //     //Arrange
-        //     $name = "Burchs";
-        //     $location = "Oakway Center";
-        //     $phone = "5415131122";
-        //     $test_store = new Store($name, $location, $phone);
-        //     $test_store->save();
-        //
-        //     //Act
-        //     $new_phone = "5037898756";
-        //     $test_store->updatePhone($new_phone);
-        //
-        //     //Assert
-        //     $result = Store::getAll();
-        //     $this->assertEquals($new_phone, $result[0]->getPhone());
-        // }
+            //Act
+            $new_name = "Reebok";
+            $test_brand->updateName($new_name);
+
+            //Assert
+            $result = Brand::getAll();
+            $this->assertEquals($new_name, $result[0]->getName());
+        }
+
+        function test_updateWebsite()
+        {
+            //Arrange
+            $name = "Nike";
+            $website = "http://www.nike.com";
+            $test_brand = new Brand($name, $website);
+            $test_brand->save();
+
+            //Act
+            $new_website = "Reebok";
+            $test_brand->updateWebsite($new_website);
+
+            //Assert
+            $result = Brand::getAll();
+            $this->assertEquals($new_website, $result[0]->getWebsite());
+        }
+
         //
         // function test_delete()
         // {
