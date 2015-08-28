@@ -56,7 +56,14 @@
         // Basic database storage methods
         function save()
         {
-
+            $GLOBALS['DB']->exec("INSERT INTO stores (name, location, phone)
+                VALUES (
+                    '{$this->getName()}',
+                    '{$this->getLocation()}',
+                    '{$this->getPhone()}'
+                );"
+            );
+            $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
         function update($column, $data)
@@ -71,12 +78,24 @@
 
         static function getAll()
         {
-
+            $store_query = $GLOBALS['DB']->query("SELECT * FROM stores;");
+            $all_stores = array();
+            foreach ($store_query as $store) {
+                $new_store = new Store(
+                    $store['name'],
+                    $store['location'],
+                    $store['phone'],
+                    $store['id']
+                );
+                array_push($all_stores, $new_store);
+            }
+            return $all_stores;
         }
 
         static function deleteAll()
         {
-
+            $GLOBALS['DB']->exec("DELETE FROM stores;");
+            $GLOBALS['DB']->exec("DELETE FROM retail_locations;");
         }
 
         static function find($search_id)

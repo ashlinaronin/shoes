@@ -16,7 +16,7 @@
     {
         protected function tearDown()
         {
-            // Store::deleteAll();
+            Store::deleteAll();
             // Brand::deleteAll();
         }
 
@@ -89,9 +89,10 @@
             $test_store2->save();
 
             //Act
-            $result = Store::getAll();
+            Store::deleteAll();
 
             //Assert
+            $result = Store::getAll();
             $this->assertEquals([], $result);
         }
 
