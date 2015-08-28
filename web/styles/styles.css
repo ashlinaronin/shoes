@@ -24,7 +24,7 @@ input {
 }
 
 .navbar {
-    background: linear-gradient(to right, rgb(255, 255, 255), rgb(110,99,115));
+    background: linear-gradient(to right, rgb(255, 255, 255), rgb(78, 173, 199));
     /*text-shadow: 2px 2px 2px #ffffff;*/
     font-size: 20px;
     border-color: black;

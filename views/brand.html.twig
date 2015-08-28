@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Shoe Brand: {{ brand.getName }}</title>
+        <title>S'sS-DSSM: {{ brand.getName }}</title>
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
         <link rel='stylesheet' href='/styles/styles.css' />
     </head>
@@ -10,7 +10,7 @@
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">
-                        <img alt="Salon" src="/img/heels.jpg" id="heels">
+                        <img alt="Salon" src="/img/heel.gif" id="heels">
                         <span id="shoes_manager">Sebastian's Super-Duper Shoe Store Manager</span>
                     </a>
                 </div>
@@ -24,7 +24,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3>Stores carrying {{ brand.getName }} shoes</h3>
-                            <p><em>Website</em>: {{ brand.getWebsite }}</p>
+                            <p><em>Website</em>: <a href="{{ brand.getWebsite }}" alt="{{brand.getName}} website">{{ brand.getWebsite }}</a></p>
                             <p><a class="btn btn-default" id="togglebtn" href="#" role="button">Edit</a></p>
 
                             {# form to update brand here #}
