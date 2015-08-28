@@ -172,6 +172,30 @@
             $this->assertEquals($new_phone, $result[0]->getPhone());
         }
 
+        function test_delete()
+        {
+            //Arrange
+            $name = "Burchs";
+            $location = "Oakway Center";
+            $phone = "5415131122";
+            $test_store = new Store($name, $location, $phone);
+            $test_store->save();
+
+            $name2 = "Payless ShoeSource";
+            $location2 = "Valley River Center";
+            $phone2 = "5415130809";
+            $test_store2 = new Store($name2, $location2, $phone2);
+            $test_store2->save();
+
+            //Act
+            $test_store->delete();
+
+            //Assert
+            $result = Store::getAll();
+            $this->assertEquals([$test_store2], $result);
+        }
+
+
 
 
 
