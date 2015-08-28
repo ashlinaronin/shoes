@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>Shoe Store: {{ store.getName }}</title>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+        <link rel='stylesheet' href='/styles/styles.css' />
+    </head>
+    <body>
+        <!-- start nav -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">
+                        <img alt="Salon" src="/img/heels.jpg" id="heels">
+                        <span id="shoes_manager">Shoes Manager Thing</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <!-- end nav -->
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3>{{ store.getName }}</h3>
+                            <p><em>Location</em>: {{ store.getLocation }}</p>
+                            <p><em>Phone</em>: {{ store.getPhone }}</p>
+                            <p><a href="/store/{{ store.getId }}/editthisurldoesntexistyetputupdateforminbody">Update store info</a></p>
+                        </div>
+                        <div class="panel-body">
+                            {% if brands is not empty %}
+                                <div class="list-group">
+                                    {% for brand in brands %}
+                                        <div class="list-group-item">
+                                            <a class="list-group-item-heading" href="/brand/{{ brand.getId }}"><h4>{{ brand.getName}}</h4></a>
+                                            <p class="list-group-item-text">Website: {{ brand.getWebsite }}</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <form action="/store/{{ store.getId }}/deleteBrands" class="form-horizontal" method="post">
+                                    <input name="_method" type="hidden" value="delete">
+                                    <button type="submit" class="btn btn-default btn-md">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        Remove all brands from {{ store.getName }}
+                                        This link should go to
+                                    </button>
+                                </form>
+
+                            {% else %}
+                                <span class="list-group-item">No brands yet.</span>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="panel panel-default" id="brand-form">
+                        <div class="panel-heading">
+                            <h3>Add new brand</h3>
+                            <h3>Here there should also be an option to add existing brand to store</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form action='/store/{{ store.getId }}' method='post'>
+                                <div class='form-group'>
+                                    <input id='store_id' name='store_id' type='hidden' value='{{ store.getId }}'>
+                                    <label for='name'>Brand Name</label>
+                                    <input id='name' name='name' type='text' required>
+                                </div>
+                                <div class='form-group'>
+                                    <label for='website'>Client Website:</label>
+                                    <input id='website' name='website' type='text' required>
+                                </div>
+                                <button type="submit" class="btn btn-default btn-md" id="add_client">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    Add Brand
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

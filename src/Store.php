@@ -161,6 +161,11 @@
             return $matching_brands;
         }
 
+        function removeBrands()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM retail_locations WHERE store_id = {$this->getId()};");
+        }
+
 
     }
 ?>

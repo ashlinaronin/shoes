@@ -32,9 +32,9 @@
                             <h3>Stores</h3>
                         </div>
                         <div class="panel-body">
-                            {% if stores is not empty %}
+                            {% if all_stores is not empty %}
                                 <div class="list-group">
-                                    {% for store in stores %}
+                                    {% for store in all_stores %}
                                         <a class="list-group-item" href="/store/{{ store.getId }}">{{ store.getName }}</a></li>
                                     {% endfor %}
                                 </div>

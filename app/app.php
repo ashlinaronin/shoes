@@ -48,8 +48,7 @@
         $new_store = new Store(
             $escaped_post['name'],
             $escaped_post['location'],
-            $escaped_post['phone'],
-            $escaped_post['id']
+            $escaped_post['phone']
         );
         $new_store->save();
         return $app['twig']->render('all_stores.html.twig', array(
@@ -91,10 +90,10 @@
 
             $new_brand = new Brand(
                 $escaped_post['name'],
-                $escaped_post['website'],
-                $escaped_post['id']
+                $escaped_post['website']
             );
             $new_brand->save();
+            $store->addBrand($new_brand);
 
         return $app['twig']->render('store.html.twig', array(
             'store' => $store,
@@ -122,6 +121,22 @@
         ));
     });
 
+    /* [D] Remove all connections between brands and this store.
+    ** Don't actually delete any brands or this store.
+    ** Then display the normal store page. */
+    $app->delete("/store/{id}/deleteBrands", function($id), use ($app) {
+        $store = Store::find($id);
+        $store->removeBrands();
+
+        return $app['twig']->render('store.html.twig', array(
+            'store' => $store,
+            'brands' => $store->getBrands(),
+            'all_brands' => Brand::getAll()
+        ));
+    });
+
+    /store/{{ store.getId }}/deleteBrands
+
     /* [D] Delete a Store, then go back to the main page
     ** showing the list of all Stores. */
     $app->delete("/store/{id}", function($id) use ($app) {
@@ -132,6 +147,7 @@
             'all_stores' => Store::getAll()
         ));
     });
+
 
 
 
