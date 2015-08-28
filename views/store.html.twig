@@ -38,12 +38,11 @@
                                         </div>
                                     {% endfor %}
                                 </div>
-                                <form action="/store/{{ store.getId }}/deleteBrands" class="form-horizontal" method="post">
+                                <form action="/store/{{ store.getId }}/removeBrands" class="form-horizontal" method="post">
                                     <input name="_method" type="hidden" value="delete">
                                     <button type="submit" class="btn btn-default btn-md">
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                         Remove all brands from {{ store.getName }}
-                                        This link should go to
                                     </button>
                                 </form>
 
@@ -58,23 +57,35 @@
                 <div class="col-sm-6">
                     <div class="panel panel-default" id="brand-form">
                         <div class="panel-heading">
-                            <h3>Add new brand</h3>
-                            <h3>Here there should also be an option to add existing brand to store</h3>
+                            <h3>Add brand</h3>
                         </div>
                         <div class="panel-body">
-                            <form action='/store/{{ store.getId }}' method='post'>
+                            <form action='/store/{{ store.getId }}' role='form' method='post'>
+                                {% if all_brands is not empty %}
+                                <div class='form-group'>
+                                    <label for='existing_brand'>Add an existing brand to {{ store.getName }}</label>
+                                    <select class='form-control' id='existing_brand' name='existing_brand' onchange="form.submit()">
+                                            <option value=''>Select a brand</option>
+                                        {% for existing_brand in all_brands %}
+                                            <option value='{{ existing_brand.getId }}'>{{ existing_brand.getName }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <h5>--or--</h5>
+                                {% endif %}
+
                                 <div class='form-group'>
                                     <input id='store_id' name='store_id' type='hidden' value='{{ store.getId }}'>
-                                    <label for='name'>Brand Name</label>
+                                    <label for='name'>New Brand Name</label>
                                     <input id='name' name='name' type='text' required>
                                 </div>
                                 <div class='form-group'>
-                                    <label for='website'>Client Website:</label>
+                                    <label for='website'>New Brand Website:</label>
                                     <input id='website' name='website' type='text' required>
                                 </div>
                                 <button type="submit" class="btn btn-default btn-md" id="add_client">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    Add Brand
+                                    Add New Brand
                                 </button>
                             </form>
                         </div>

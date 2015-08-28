@@ -85,22 +85,22 @@
         $store = Store::find($id);
         $escaped_post = escapeCharsInArray($_POST);
 
-        // if brand already exists, use it
-        // else make new brand
-
-            $new_brand = new Brand(
-                $escaped_post['name'],
-                $escaped_post['website']
-            );
+        // If user chose to add an existing brand, add it to the store.
+        if (!empty($escaped_post['existing_brand'])) {
+            $existing_brand = Brand::find($escaped_post['existing_brand']);
+            $store->addBrand($existing_brand);
+        } else {
+            // Otherwise, create a new brand and add it to the store.
+            $new_brand = new Brand($escaped_post['name'], $escaped_post['website']);
             $new_brand->save();
             $store->addBrand($new_brand);
+        }
 
         return $app['twig']->render('store.html.twig', array(
             'store' => $store,
             'brands' => $store->getBrands(),
             'all_brands' => Brand::getAll()
         ));
-
     });
 
     // [U] Update a Store, then display that store and its brands.
@@ -124,7 +124,7 @@
     /* [D] Remove all connections between brands and this store.
     ** Don't actually delete any brands or this store.
     ** Then display the normal store page. */
-    $app->delete("/store/{id}/deleteBrands", function($id), use ($app) {
+    $app->delete("/store/{id}/removeBrands", function($id) use ($app) {
         $store = Store::find($id);
         $store->removeBrands();
 
@@ -134,8 +134,6 @@
             'all_brands' => Brand::getAll()
         ));
     });
-
-    /store/{{ store.getId }}/deleteBrands
 
     /* [D] Delete a Store, then go back to the main page
     ** showing the list of all Stores. */
@@ -208,7 +206,18 @@
             'stores' => $brand->getStores(),
             'all_stores' => Store::getAll()
         ));
+    });
 
+    /* [D] Remove connections between this brand and all stores. */
+    $app->delete("/brand/{id}/removeStores", function($id) use ($app) {
+        $brand = Brand::find($id);
+        $brand->removeStores();
+
+        return $app['twig']->render('brand.html.twig', array(
+            'brand' => $brand,
+            'stores' => $brand->getStores(),
+            'all_stores' => Store::getAll()
+        ));
     });
 
     return $app;
