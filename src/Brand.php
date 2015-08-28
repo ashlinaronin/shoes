@@ -110,14 +110,36 @@
 
 
         // Database methods relating to Stores table
-        function addStore($new_brand)
+        function addStore($new_store)
         {
-
+            $GLOBALS['DB']->exec("INSERT INTO retail_locations (brand_id, store_id)
+                VALUES (
+                    {$this->getId()},
+                    {$new_store->getId()}
+                );"
+            );
         }
 
         function getStores()
         {
+            $stores_query = $GLOBALS['DB']->query(
+                "SELECT stores.* FROM
+                    brands JOIN retail_locations ON (retail_locations.brand_id = brands.id)
+                           JOIN stores           ON (stores.id = retail_locations.store_id)
+                 WHERE brands.id = {$this->getId()};"
+            );
 
+            $matching_stores = array();
+            foreach($stores_query as $store) {
+                $new_store = new Store(
+                    $store['name'],
+                    $store['location'],
+                    $store['phone'],
+                    $store['id']
+                );
+                array_push($matching_stores, $new_store);
+            }
+            return $matching_stores;
         }
 
     }
