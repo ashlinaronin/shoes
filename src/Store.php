@@ -166,6 +166,17 @@
             $GLOBALS['DB']->exec("DELETE FROM retail_locations WHERE store_id = {$this->getId()};");
         }
 
+        function hasBrand($brand_search_id)
+        {
+            $store_brands = $this->getBrands();
+            foreach($store_brands as $brand) {
+                if ($brand->getId() == $brand_search_id) {
+                    return true;
+                }
+            }
 
+            // We'll only get here if the brand has not been found after the loop
+            return false;
+        }
     }
 ?>

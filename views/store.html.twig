@@ -67,7 +67,10 @@
                                     <select class='form-control' id='existing_brand' name='existing_brand' onchange="form.submit()">
                                             <option value=''>Select a brand</option>
                                         {% for existing_brand in all_brands %}
-                                            <option value='{{ existing_brand.getId }}'>{{ existing_brand.getName }}</option>
+                                            {# if store already has this brand, grey it out in the list#}
+                                            <option value='{{ existing_brand.getId }}'{% if store.hasBrand(existing_brand.getId) %} disabled='disabled'{% endif %}>
+                                                {{ existing_brand.getName }}
+                                            </option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -76,11 +79,11 @@
 
                                 <div class='form-group'>
                                     <input id='store_id' name='store_id' type='hidden' value='{{ store.getId }}'>
-                                    <label for='name'>New Brand Name</label>
+                                    <label for='name'>New brand name</label>
                                     <input id='name' name='name' type='text' required>
                                 </div>
                                 <div class='form-group'>
-                                    <label for='website'>New Brand Website:</label>
+                                    <label for='website'>New brand website:</label>
                                     <input id='website' name='website' type='text' required>
                                 </div>
                                 <button type="submit" class="btn btn-default btn-md" id="add_client">
