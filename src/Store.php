@@ -132,14 +132,35 @@
         // Database methods relating to Brands table
         function addBrand($new_brand)
         {
-
+            $GLOBALS['DB']->exec("INSERT INTO retail_locations (brand_id, store_id)
+                VALUES (
+                    {$new_brand->getId()},
+                    {$this->getId()}
+                );"
+            );
         }
 
         function getBrands()
         {
+            $brands_query = $GLOBALS['DB']->query(
+                "SELECT brands.* FROM
+                    stores JOIN retail_locations ON (retail_locations.store_id = stores.id)
+                           JOIN brands           ON (brands.id = retail_locations.brand_id)
+                 WHERE stores.id = {$this->getId()};"
+            );
 
+            $matching_brands = array();
+            foreach($brands_query as $brand) {
+                $new_brand = new Brand(
+                    $brand['name'],
+                    $brand['website'],
+                    $brand['id']
+                );
+                array_push($matching_brands, $new_brand);
+            }
+            return $matching_brands;
         }
-        
+
 
     }
  ?>
