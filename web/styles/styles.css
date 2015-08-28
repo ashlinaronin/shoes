@@ -1,0 +1,38 @@
+body {
+    /*background-image: url("../img/francoise.jpg");*/
+    /*background-color: rgb(175, 201, 198);*/
+    background-size: 100% 100%;
+    padding-top: 70px;
+    font-family: "Avenir", sans-serif;
+}
+
+button {
+    width: 100%;
+    display: block;
+}
+
+h3 {
+    text-align: center;
+}
+
+input {
+    width: 100%;
+}
+
+.navbar {
+    background: linear-gradient(to right, rgb(255, 255, 255), rgb(110,99,115));
+    /*text-shadow: 2px 2px 2px #ffffff;*/
+    font-size: 20px;
+    border-color: black;
+}
+
+.navbar-brand {
+    padding: 5px 10px 5px 10px;
+    /*font-family: "Noteworthy";*/
+}
+
+#heels {
+    width: 40px;
+    height: 40px;
+    display: inline;
+}

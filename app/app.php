@@ -49,7 +49,7 @@
             $escaped_post['name'],
             $escaped_post['location'],
             $escaped_post['phone'],
-            $escaped_post['id'],
+            $escaped_post['id']
         );
         $new_store->save();
         return $app['twig']->render('all_stores.html.twig', array(
@@ -92,7 +92,7 @@
             $new_brand = new Brand(
                 $escaped_post['name'],
                 $escaped_post['website'],
-                $escaped_post['id'],
+                $escaped_post['id']
             );
             $new_brand->save();
 
@@ -164,7 +164,7 @@
                 $escaped_post['name'],
                 $escaped_post['location'],
                 $escaped_post['phone'],
-                $escaped_post['id'],
+                $escaped_post['id']
             );
             $new_store->save();
 
