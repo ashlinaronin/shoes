@@ -9,7 +9,9 @@ SS-DSSM allows a user to enter shoe stores into a database and associate carried
 brands with them. The user may [C]reate, [R]ead, [U]pdate and [D]elete shoe
 stores and the brands they carry. The project utilizes some nifty div-hiding
 to keep the number of template files to just three- one for all stores, one for
-an individual store, and one for an individual brand.
+an individual store, and one for an individual brand. When I get a chance I plan
+to implement a three-box phone number input system for better input validation.
+I also plan to fine-tune the CSS and 
 
 ## Setup
 * Clone this repository from GitHub
