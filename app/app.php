@@ -108,11 +108,20 @@
         $store = Store::find($id);
         $escaped_post = escapeCharsInArray($_POST);
 
-        // check for which post variables we have and update those
-        // could be just one or all three
-        $store->updateName($escaped_post['name']);
-        $store->updateLocation($escaped_post['location']);
-        $store->updatePhone($escaped_post['phone']);
+        // Check for which post variables we have and update those
+        // Could be just one or all three
+        if (!empty($escaped_post['new_name'])) {
+            $store->updateName($escaped_post['new_name']);
+        }
+
+        if (!empty($escaped_post['new_location'])) {
+            $store->updateLocation($escaped_post['new_location']);
+        }
+
+        if (!empty($escaped_post['new_phone'])) {
+            $store->updatePhone($escaped_post['new_phone']);
+        }
+
 
         return $app['twig']->render('store.html.twig', array(
             'store' => $store,

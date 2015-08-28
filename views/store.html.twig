@@ -3,6 +3,7 @@
         <title>Shoe Store: {{ store.getName }}</title>
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
         <link rel='stylesheet' href='/styles/styles.css' />
+
     </head>
     <body>
         <!-- start nav -->
@@ -26,7 +27,34 @@
                             <h3>{{ store.getName }}</h3>
                             <p><em>Location</em>: {{ store.getLocation }}</p>
                             <p><em>Phone</em>: {{ store.getPhone }}</p>
-                            <p><a href="/store/{{ store.getId }}/editthisurldoesntexistyetputupdateforminbody">Update store info</a></p>
+                            <p><a class="btn btn-default" id='togglebtn' href="#" role="button">Update store info</a></p>
+
+                            {# button to show or hide update form #}
+                            <!-- <button id="togglebtn" onclick="toggle_div_visibility">Show/Hide Store Update Form</button> -->
+
+                            {# store updating form here #}
+                            <div class="container-fluid" id="update_form">
+                                <form action="/store/{{ store.getId }}" class="form-horizontal" method="post">
+                                    <input type="hidden" name="_method" value="patch">
+                                    <div class='form-group'>
+                                        <label for='new_name'>New store name:</label>
+                                        <input id='new_name' name='new_name' type='text'>
+                                    </div>
+                                    <div class='form-group'>
+                                        <label for='new_location'>New store location:</label>
+                                        <input id='new_location' name='new_location' type='text'>
+                                    </div>
+                                    <div class='form-group'>
+                                        <label for='new_phone'>New store phone:</label>
+                                        <input id='new_phone' name='new_phone' type='text'>
+                                    </div>
+                                    <button type="submit" class="btn btn-default btn-md">
+                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>Update
+                                    </button>
+                                </form>
+                            </div>
+                            {# end store updating form #}
+
                         </div>
                         <div class="panel-body">
                             {% if brands is not empty %}
@@ -96,5 +124,7 @@
                 </div>
             </div>
         </div>
+        <!-- script must go here to find the button-->
+        <script src="/scripts/toggleform.js"></script>
     </body>
 </html>
