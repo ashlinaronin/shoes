@@ -32,7 +32,7 @@
         return $escaped_array;
     }
 
-
+    /*******************All Store routes *********************/
     /* [R] Landing page - display all shoe Stores
     ** Allow user to add a store or delete all stores.
     ** Each store listing is a link to its individual page. */
@@ -51,7 +51,7 @@
     });
 
 
-
+    /*************Individual Store routes *******************/
     /* [R] Display a Store and its brands.
     ** Allow user to update or delete this store.
     ** Allow user to add a brand to this store. */
@@ -79,8 +79,7 @@
 
 
 
-
-
+    /**************Individual Brand routes *******************/
     /* [R] Display a Brand and its Stores.
     ** Allow user to add a new Store to this brand. */
     $app->get("/brand/{id}", function($id) use ($app) {
