@@ -195,6 +195,71 @@
             $this->assertEquals([$test_store2], $result);
         }
 
+        function test_addBrand()
+        {
+            //Arrange
+            // Make a test Store
+            $name = "Burchs";
+            $location = "Oakway Center";
+            $phone = "5415131122";
+            $test_store = new Store($name, $location, $phone);
+            $test_store->save();
+
+            // Make a test Brand
+            $name = "Nike";
+            $website = "http://www.nike.com";
+            $test_brand = new Brand($name, $website);
+            $test_brand->save();
+
+            //Act
+            $test_store->addBrand($test_brand);
+
+            //Assert
+            $result = $test_store->getBrands();
+            $this->assertEquals([$test_brand], $result);
+
+        }
+
+        function test_getBrands()
+        {
+            //Arrange
+            // Make two test Stores
+            $name = "Burchs";
+            $location = "Oakway Center";
+            $phone = "5415131122";
+            $test_store = new Store($name, $location, $phone);
+            $test_store->save();
+
+            $name2 = "Payless ShoeSource";
+            $location2 = "Valley River Center";
+            $phone2 = "5415130809";
+            $test_store2 = new Store($name2, $location2, $phone2);
+            $test_store2->save();
+
+
+            // Make two test Brands
+            $name = "Nike";
+            $website = "http://www.nike.com";
+            $test_brand = new Brand($name, $website);
+            $test_brand->save();
+            
+            $name2 = "Adidas";
+            $website2 = "http://www.adidas.com";
+            $test_brand2 = new Brand($name2, $website2);
+            $test_brand2->save();
+
+            // Add both brands to second store
+            $test_store2->addBrand($test_brand);
+            $test_store2->addBrand($test_brand2);
+
+            //Act
+            $result = $test_store2->getBrands();
+
+
+            //Assert
+            $this->assertEquals([$test_brand, $test_brand2], $result);
+        }
+
 
 
 
