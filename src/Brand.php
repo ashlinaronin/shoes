@@ -147,5 +147,17 @@
             $GLOBALS['DB']->exec("DELETE FROM retail_locations WHERE brand_id = {$this->getId()};");
         }
 
+        function hasStore($store_search_id)
+        {
+            $associated_stores = $this->getStores();
+            foreach($associated_stores as $store) {
+                if ($store->getId() == $store_search_id) {
+                    return true;
+                }
+            }
+
+            // We'll only get here if the store has not been found after the loop
+            return false;
+        }
     }
 ?>

@@ -168,8 +168,8 @@
 
         function hasBrand($brand_search_id)
         {
-            $store_brands = $this->getBrands();
-            foreach($store_brands as $brand) {
+            $associated_brands = $this->getBrands();
+            foreach($associated_brands as $brand) {
                 if ($brand->getId() == $brand_search_id) {
                     return true;
                 }
