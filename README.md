@@ -11,7 +11,7 @@ stores and the brands they carry. The project utilizes some nifty div-hiding
 to keep the number of template files to just three- one for all stores, one for
 an individual store, and one for an individual brand. When I get a chance I plan
 to implement a three-box phone number input system for better input validation.
-I also plan to fine-tune the CSS and 
+I also plan to fine-tune the CSS.
 
 ## Setup
 * Clone this repository from GitHub
